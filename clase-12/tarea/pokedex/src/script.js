@@ -20,6 +20,12 @@ for(let i = 1; i <= POKEMON_API_1; i+= evitarEvoluciones) {
     .catch(error => console.error(error))
 }
 
+function addPokemon(pokemon, indexPokemon, indexContainerPokemon) {
+        $(".main-container").append($(`<div id="${pokemon.name}-container"class="pokemon-container ${indexContainerPokemon}"><p class="name-pokemon">${pokemon.name}</p></div>`));
+        $(`#${pokemon.name}-container`).append($(`<div class="${pokemon.name} img-container"><img class="${pokemon.name} img-pokemon" id="pokemon-${indexPokemon}" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${indexPokemon}.png"></div>`));
+        $(`#${pokemon.name}-container`).append($(`<div class="${pokemon.name} btn-container"><button id="btn-pokemon" class="${pokemon.name} btn-pokemon">Ver Detalle</button></div>`))
+        
+}
 
 function mostrarDetalles (event) {
     $(".pokemon-stats").removeClass("oculto")
@@ -39,20 +45,27 @@ function mostrarDetalles (event) {
                 return `Altura: ${dataPokemones[i].height * 10} cm`
             })
             $(".stats-list .weight").text(function() {
-                return `Altura: ${dataPokemones[i].weight} km`
+                return `Peso: ${dataPokemones[i].weight} kg`
             })
 
         }
     }
 }
 
-function addPokemon(pokemon, indexPokemon, indexContainerPokemon) {
-        $(".main-container").append($(`<div id="${pokemon.name}-container"class="pokemon-container ${indexContainerPokemon}"><p class="name-pokemon">${pokemon.name}</p></div>`));
-        $(`#${pokemon.name}-container`).append($(`<div class="${pokemon.name} img-container"><img class="${pokemon.name} img-pokemon" id="pokemon-${indexPokemon}" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${indexPokemon}.png"></div>`));
-        $(`#${pokemon.name}-container`).append($(`<div class="${pokemon.name} btn-container"><button id="btn-pokemon" class="${pokemon.name} btn-pokemon">Ver Detalle</button></div>`))
-        
+function salirDetalles (event) {
+    $(".pokemon-stats").addClass("oculto");
+    $(".mini-img-pokemon").html("")
+    $(".stats-list .name").html("")
+    $(".stats-list .type").html("")
+    $(".stats-list .tall").html("")
+    $(".stats-list .weight").html("")
 }
 
 setTimeout(() => {
     $(".btn-pokemon").click(mostrarDetalles);
+    $(".details-exit").click(salirDetalles);
 }, 3000)
+
+
+
+
